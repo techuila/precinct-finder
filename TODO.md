@@ -1,0 +1,12 @@
+## TODO
+- [x] Refactor front end
+- [ ] create fetch hook
+- [ ] create server
+- [ ] create api for fetching voters
+- [ ] integration
+- [ ] (FE) create settings to fetch and replace data on local db
+- [ ] publish private api to vps
+- [ ] create private api to upload pdf
+- [ ] create private api to fetch parsed data from uploaded pdf
+- [ ] setup api key
+- [ ] create installer for windows and mac

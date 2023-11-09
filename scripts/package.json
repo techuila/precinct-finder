@@ -1,0 +1,10 @@
+{
+  "name": "precinct-finder-2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "pdf-parse": "^1.1.1",
+    "pdf2json": "^2.0.0"
+  }
+}
