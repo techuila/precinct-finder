@@ -1,130 +1,138 @@
+const path = require('path');
 const fs = require('fs');
 const pdf = require('pdf-parse');
 
-let dataBuffer = fs.readFileSync('./TETUAN.pdf');
+// get first argument
+const arg = process.argv[2] || './TETUAN.pdf';
+const pdf_path = path.resolve(__dirname, arg);
+
+let dataBuffer = fs.readFileSync(pdf_path);
 
 let isVoterNext = false;
-let sql = 'INSERT INTO voter(`name`, address, barangay, cluster_no, assign_no, precinct_no, building, room) VALUES';
+let sql =
+	'INSERT INTO voter(`name`, address, barangay, cluster_no, assign_no, precinct_no, building, room) VALUES';
 const cluster = {
 	567: {
 		room: 'K - MARCOS',
 		building: "NEAR PRINCIPAL'S OFFICE",
-		precinct: ['1385A', '1385B', '1386A', '1386B'],
+		precinct: ['1385A', '1385B', '1386A', '1386B']
 	},
 	568: {
 		room: 'IV - BALAN',
 		building: 'NEW BUILDING (GRADE 6)',
-		precinct: ['1387A', '1388A', '1389A', '1390A'],
+		precinct: ['1387A', '1388A', '1389A', '1390A']
 	},
 	569: {
 		room: 'IC - ANOVA',
 		building: 'NEW BUILDING (GRADE 6)',
-		precinct: ['1390B', '1391A', '1392A', '1393A'],
+		precinct: ['1390B', '1391A', '1392A', '1393A']
 	},
 	570: {
 		room: 'IV - ENAD',
 		building: 'NEW BUILDING (GRADE 6)',
-		precinct: ['1394A', '1395A', '1396A', '1397A'],
+		precinct: ['1394A', '1395A', '1396A', '1397A']
 	},
 	571: {
 		room: 'IV - HAYUDINI',
 		building: 'NEW BUILDING (GRADE 5)',
-		precinct: ['1398A', '1399A', '1400A', '1401A'],
+		precinct: ['1398A', '1399A', '1400A', '1401A']
 	},
 	572: {
 		room: 'IV - SANTOS',
 		building: 'NEW BUILDING (GRADE 5)',
-		precinct: ['1402A', '1402B', '1403A', '1404A'],
+		precinct: ['1402A', '1402B', '1403A', '1404A']
 	},
 	573: {
 		room: 'IV - GUTIERREZ',
 		building: 'NEW BUILDING (GRADE 5)',
-		precinct: ['1405A', '1406A', '1407A', '1408A'],
+		precinct: ['1405A', '1406A', '1407A', '1408A']
 	},
 	574: {
 		room: 'I - MONDRAGON',
 		buidling: 'GRADE 1 BUILDING',
-		precinct: ['1409A', '1410A', '1411A', '1412A'],
+		precinct: ['1409A', '1410A', '1411A', '1412A']
 	},
 	575: {
 		room: 'I - MENDOZA',
 		building: 'GRADE 1 BUILDING',
-		precinct: ['1413A', '1414A', '1415A', '1415B'],
+		precinct: ['1413A', '1414A', '1415A', '1415B']
 	},
 	576: {
 		room: 'I - AMMAK',
 		building: 'GRADE 1 BUILDING',
-		precinct: ['1416A', '1417A', '1418A', '1419A'],
+		precinct: ['1416A', '1417A', '1418A', '1419A']
 	},
 	577: {
 		room: 'I - LARDIZABAL',
 		building: 'GRADE 1 BUILDING',
-		precinct: ['1419B', '1420A', '1421A', '1422A'],
+		precinct: ['1419B', '1420A', '1421A', '1422A']
 	},
 	578: {
 		room: 'II - HADJIRI',
 		building: 'GRADE 2 BUILDING',
-		precinct: ['1423A', '1424A', '1425A', '1426A'],
+		precinct: ['1423A', '1424A', '1425A', '1426A']
 	},
 	579: {
 		room: 'II - SUICO',
 		building: 'GRADE 2 BUILDING',
-		precinct: ['1427A', '1427B', '1428A', '1429A'],
+		precinct: ['1427A', '1427B', '1428A', '1429A']
 	},
 	580: {
 		room: 'II - ABDULA',
 		building: 'GRADE 2 BUILDING',
-		precinct: ['1430A', '1431A', '1432A', '1433A'],
+		precinct: ['1430A', '1431A', '1432A', '1433A']
 	},
 	581: {
 		room: 'II - BUCOY',
 		building: 'GRADE 2 BUILDING',
-		precinct: ['1433B', '1434A', '1435A', '1436A'],
+		precinct: ['1433B', '1434A', '1435A', '1436A']
 	},
 	582: {
 		room: 'LSEN - VILLANUEVA',
 		building: 'SPED - LWD BUILDING',
-		precinct: ['1437A', '1438A', '1439A', '1440A', '1441A'],
+		precinct: ['1437A', '1438A', '1439A', '1440A', '1441A']
 	},
 	583: {
 		room: 'LSEN - GARGAR',
 		building: 'SPED - LWD BUILDING',
-		precinct: ['1442A', '1443A', '1444A', '1445A', '1446A'],
+		precinct: ['1442A', '1443A', '1444A', '1445A', '1446A']
 	},
 	584: {
 		room: 'PG - BUCOY',
 		building: 'SPED - PG BUILDING',
-		precinct: ['1447A', '1448A', '1449A', '1450A', '1451A'],
+		precinct: ['1447A', '1448A', '1449A', '1450A', '1451A']
 	},
 	585: {
 		room: 'PG - LLADONES',
 		building: 'SPED - PG BUILDING',
-		precinct: ['1452A', '1453A', '1454A', '1455A', '1455B'],
+		precinct: ['1452A', '1453A', '1454A', '1455A', '1455B']
 	},
 	586: {
 		room: 'II - APARRE',
 		building: 'GRADE 3 BUILDING',
-		precinct: ['1456A', '1457A', '1458A', '1459A', '1460A'],
+		precinct: ['1456A', '1457A', '1458A', '1459A', '1460A']
 	},
 	587: {
 		room: 'II - AUX',
 		building: 'GRADE 3 BUILDING',
-		precinct: ['1461A', '1462A', '1463A', '1464A', '1465A'],
+		precinct: ['1461A', '1462A', '1463A', '1464A', '1465A']
 	},
 	588: {
 		room: 'I - AMAHOY',
 		building: 'GRADE 3 BUILDING',
-		precinct: ['1466A', '1467A', '1468A', '1469A', '1470A'],
+		precinct: ['1466A', '1467A', '1468A', '1469A', '1470A']
 	},
 	589: {
 		room: 'K - TRIAGO',
 		building: 'NEAR CONFERENCE ROOM',
-		precinct: ['1471A', '1471B', '1472A', '1472B'],
-	},
+		precinct: ['1471A', '1471B', '1472A', '1472B']
+	}
 };
 
 function getCluster(precinct_no) {
-	const found = Object.entries(cluster).find((e) => e[1].precinct.find((p) => p === precinct_no));
+	const found = Object.entries(cluster).find((e) =>
+		e[1].precinct.find((p) => p === precinct_no)
+	);
 	return { ...cluster[found[0]], cluster_no: found[0] };
 }
 
@@ -137,7 +145,7 @@ function render_page(pageData) {
 		//replaces all occurrences of whitespace with standard spaces (0x20). The default value is `false`.
 		normalizeWhitespace: false,
 		//do not attempt to combine same line TextItem's. The default value is `false`.
-		disableCombineTextItems: true,
+		disableCombineTextItems: true
 	};
 	return pageData.getTextContent(render_options).then(function (textContent) {
 		let lastY,
@@ -177,7 +185,7 @@ function render_page(pageData) {
 }
 
 let options = {
-	pagerender: render_page,
+	pagerender: render_page
 	// max: 1,
 };
 
