@@ -20,7 +20,7 @@ function App() {
 					</p>
 				</div>
 
-				<Input className='self-center ' placeholder='Search Name' />
+				<Searchbar />
 
 				<Table className='mt-4'>
 					<Table.Header>

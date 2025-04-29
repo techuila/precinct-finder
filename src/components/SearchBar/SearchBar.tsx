@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Search, X } from 'lucide-react';
-import { usePrecinctStore } from '../store/precinctStore';
+// import { usePrecinctStore } from '../store/precinctStore';
 
 const SearchBar: React.FC = () => {
-	const { searchTerm, setSearchTerm } = usePrecinctStore();
-	const [inputValue, setInputValue] = useState(searchTerm);
+	// const { searchTerm, setSearchTerm } = usePrecinctStore();
+	const [inputValue, setInputValue] = useState('');
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Debounce search term updates
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setSearchTerm(inputValue);
-		}, 300);
+	// useEffect(() => {
+	// 	const timer = setTimeout(() => {
+	// 		setSearchTerm(inputValue);
+	// 	}, 300);
 
-		return () => clearTimeout(timer);
-	}, [inputValue, setSearchTerm]);
+	// 	return () => clearTimeout(timer);
+	// }, [inputValue, setSearchTerm]);
 
 	const handleClear = () => {
 		setInputValue('');
-		setSearchTerm('');
+		// setSearchTerm('');
 		inputRef.current?.focus();
 	};
 
