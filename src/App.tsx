@@ -1,5 +1,5 @@
 import { Navbar } from './components/Navbar';
-import { Input } from './components/Input';
+import { Searchbar } from './components/SearchBar';
 import { Container } from './components/Container';
 import { Table } from './components/Table';
 
